@@ -35,3 +35,10 @@ uv run app.py
 ```
 
 and for the html part use live preview on VSCODE.
+
+The responsibilites of each file :
+
+- app.py : Is used to generate the heatmap using the fake_data.csv
+- index.html : Is the user facing application
+- and everything else is for the functioning don't worry about it.
+
