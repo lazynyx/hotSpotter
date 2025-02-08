@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_44e04ff4639d28b5537fccd8d35136a9 {
+                #map_ec445abf77a90be72247f29a7647d296 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,23 +35,24 @@
                 .leaflet-container { font-size: 1rem; }
             </style>
         
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
 </head>
 <body>
     
     
-            <div class="folium-map" id="map_44e04ff4639d28b5537fccd8d35136a9" ></div>
+            <div class="folium-map" id="map_ec445abf77a90be72247f29a7647d296" ></div>
         
 </body>
 <script>
     
     
-            var map_44e04ff4639d28b5537fccd8d35136a9 = L.map(
-                "map_44e04ff4639d28b5537fccd8d35136a9",
+            var map_ec445abf77a90be72247f29a7647d296 = L.map(
+                "map_ec445abf77a90be72247f29a7647d296",
                 {
-                    center: [12.98815675, 77.62260003796],
+                    center: [12.9716, 77.5946],
                     crs: L.CRS.EPSG3857,
                     ...{
-  "zoom": 11,
+  "zoom": 12,
   "zoomControl": true,
   "preferCanvas": false,
 }
@@ -63,7 +64,7 @@
 
         
     
-            var tile_layer_a6909703a6784f6624fe28a3d6f245a6 = L.tileLayer(
+            var tile_layer_f1e00b01fb646a491c7ab6121b949783 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -80,53 +81,21 @@
             );
         
     
-            tile_layer_a6909703a6784f6624fe28a3d6f245a6.addTo(map_44e04ff4639d28b5537fccd8d35136a9);
+            tile_layer_f1e00b01fb646a491c7ab6121b949783.addTo(map_ec445abf77a90be72247f29a7647d296);
         
     
-            var marker_042606b2064a6a68b089c4120aebe72a = L.marker(
-                [12.98815675, 77.62260003796],
+            var heat_map_646f25f95470c2704b7a262106cb8911 = L.heatLayer(
+                [[12.991, 77.5568], [12.991, 77.5568], [12.9352, 77.6245], [13.0358, 77.597], [12.9784, 77.6408], [12.9698, 77.7499], [12.991, 77.5568], [12.9746, 77.6068], [12.991, 77.5568], [12.9698, 77.7499], [13.0358, 77.597], [13.0358, 77.597], [12.839, 77.677], [12.9746, 77.6068], [12.9784, 77.5724], [12.925, 77.5938], [12.9746, 77.6068], [12.9184, 77.5734], [12.991, 77.5568], [12.9698, 77.7499], [12.9352, 77.6245], [13.0358, 77.597], [12.9698, 77.7499], [12.991, 77.5568], [12.9784, 77.5724], [12.9184, 77.5734], [13.0358, 77.597], [12.9746, 77.6068], [12.9784, 77.6408], [12.9784, 77.5724], [12.839, 77.677], [12.9352, 77.6245], [12.9352, 77.6245], [12.9184, 77.5734], [13.0358, 77.597], [12.9746, 77.6068], [12.9784, 77.5724], [12.9784, 77.6408], [12.839, 77.677], [12.9184, 77.5734], [12.9784, 77.6408], [12.991, 77.5568], [12.9784, 77.5724], [12.9784, 77.5724], [12.9746, 77.6068], [12.839, 77.677], [12.9352, 77.6245], [12.9184, 77.5734], [12.991, 77.5568], [12.9784, 77.6408]],
                 {
-}
-            ).addTo(map_44e04ff4639d28b5537fccd8d35136a9);
-        
-    
-            var icon_50032ea7da0854dcbaeadcc6cfbbfcd5 = L.AwesomeMarkers.icon(
-                {
-  "markerColor": "red",
-  "iconColor": "white",
-  "icon": "cloud",
-  "prefix": "glyphicon",
-  "extraClasses": "fa-rotate-0",
+  "minOpacity": 0.5,
+  "maxZoom": 18,
+  "radius": 25,
+  "blur": 15,
 }
             );
-            marker_042606b2064a6a68b089c4120aebe72a.setIcon(icon_50032ea7da0854dcbaeadcc6cfbbfcd5);
         
     
-        var popup_184b5ebae3c4c1d2eb8219d7461a6ae5 = L.popup({
-  "maxWidth": "100%",
-});
-
-        
-            
-                var html_eaf6c551ddaa1d9e3b45529bd767424b = $(`<div id="html_eaf6c551ddaa1d9e3b45529bd767424b" style="width: 100.0%; height: 100.0%;">Bengaluru, Bangalore North, Bengaluru Urban, Karnataka, India</div>`)[0];
-                popup_184b5ebae3c4c1d2eb8219d7461a6ae5.setContent(html_eaf6c551ddaa1d9e3b45529bd767424b);
-            
-        
-
-        marker_042606b2064a6a68b089c4120aebe72a.bindPopup(popup_184b5ebae3c4c1d2eb8219d7461a6ae5)
-        ;
-
-        
-    
-    
-            marker_042606b2064a6a68b089c4120aebe72a.bindTooltip(
-                `<div>
-                     Accident Location
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
+            heat_map_646f25f95470c2704b7a262106cb8911.addTo(map_ec445abf77a90be72247f29a7647d296);
         
 </script>
 </html>

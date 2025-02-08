@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotspotter Map</title>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <style>
+        body {
+            background-color: #1e1e2e;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #2b2b3b;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+        }
+        h2 {
+            margin-bottom: 10px;
+            color: #ff4b5c;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input {
+            background: #3a3a4f;
+            color: white;
+        }
+        button {
+            background: #ff4b5c;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+        button:hover {
+            background: #e33a4c;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+            margin-top: 15px;
+            border-radius: 10px;
+        }
+        #info {
+            background: #29293d;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🌍 Hotspotter: Accident Locater</h2>
+        <input type="text" id="location" placeholder="Enter location...">
+        <input type="text" id="description" placeholder="Enter description...">
+        <button onclick="findLocation()">Find & Plot 📍</button>
+        <button onclick="downloadCSV()">Download CSV 📥</button>
+        <div id="map"></div>
+        <div id="info"></div>
+    </div>
+    
+    <script>
+        let reportData = [["Address", "Latitude", "Longitude", "Description"]];
+
+        function findLocation() {
+            let location = document.getElementById("location").value;
+            let description = document.getElementById("description").value;
+            
+            if (!location) {
+                alert("Please enter a location.");
+                return;
+            }
+            
+            let url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length === 0) {
+                        alert("Location not found!");
+                        return;
+                    }
+                    
+                    let lat = data[0].lat;
+                    let lon = data[0].lon;
+                    let address = data[0].display_name;
+                    
+                    document.getElementById("info").innerHTML = `
+                        <h3>📍 Location Details</h3>
+                        <p><strong>Address:</strong> ${address}</p>
+                        <p><strong>Description:</strong> ${description}</p>
+                    `;
+                    
+                    let map = L.map('map').setView([lat, lon], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+                    L.marker([lat, lon]).addTo(map)
+                        .bindPopup(`<b>${address}</b><br>${description}`).openPopup();
+                    
+                    reportData.push([address, lat, lon, description]);
+                })
+                .catch(error => console.error("Error fetching location:", error));
+        }
+
+        function downloadCSV() {
+            let csvContent = "data:text/csv;charset=utf-8," + reportData.map(row => row.join(",")).join("\n");
+            let encodedUri = encodeURI(csvContent);
+            let link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "hotspotter_reports.csv");
+            document.body.appendChild(link);
+            link.click();
+        }
+    </script>
+</body>
+</html>

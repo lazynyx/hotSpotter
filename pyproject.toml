@@ -6,5 +6,5 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "folium>=0.19.4",
-    "geopy>=2.4.1",
+    "pandas>=2.2.3",
 ]
