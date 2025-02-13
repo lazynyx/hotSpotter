@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accident Data</title>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <style>
+        body {
+            background-color: #1e1e2e;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #2b2b3b;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+        }
+        h2 {
+            color: #ff4b5c;
+        }
+        #map {
+            height: 500px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Accident Data</h2>
+        <div id="map"></div>
+        <table border="1" style="width:100%; margin-top: 20px; background-color: #29293d;">
+            <tr>
+                <th>Address</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Description</th>
+            </tr>
+            {% for accident in accidents %}
+            <tr>
+                <td>{{ accident.Address }}</td>
+                <td>{{ accident.Latitude }}</td>
+                <td>{{ accident.Longitude }}</td>
+                <td>{{ accident.Description }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <script>
+        var map = L.map('map').setView([{{ accidents[0]['Latitude'] }}, {{ accidents[0]['Longitude'] }}], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        
+        {% for accident in accidents %}
+        L.marker([{{ accident.Latitude }}, {{ accident.Longitude }}])
+            .bindPopup("<b>{{ accident.Address }}</b><br>{{ accident.Description }}")
+            .addTo(map);
+        {% endfor %}
+    </script>
+</body>
+</html>

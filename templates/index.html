@@ -108,7 +108,8 @@
                         <p><strong>Description:</strong> ${description}</p>
                     `;
                     
-                    let map = L.map('map').setView([lat, lon], 13);
+                    let map = L.map('map').setView([lat, lon], 13); // this isn't working not now 
+                    // TODO make this work
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
                     L.marker([lat, lon]).addTo(map)
                         .bindPopup(`<b>${address}</b><br>${description}`).openPopup();
@@ -130,7 +131,7 @@
 
         // Function to send reportData to Python server
         function sendDataToPython() {
-            fetch('http://localhost:5000/upload', {
+            fetch('/upload', {  // Changed to relative URL as the Flask app serves it on the same host
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
